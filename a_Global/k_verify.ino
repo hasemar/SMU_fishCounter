@@ -6,7 +6,7 @@ int verify(float vel)
 {
   wtrVel = getStrmVel();   // get the stream velocity
   int result = 0; // output
-  float range = 5.0;   // use to adjust range of matching velocity to tune velocity comparison
+  float range = 50.0;   // use to adjust range of matching velocity to tune velocity comparison
   if(vel > wtrVel - range && vel < wtrVel + range)
   {
     result = 0;
@@ -24,20 +24,26 @@ int verify(float vel)
 
 float getStrmVel()
 {
-  float result;  // intermediate variable for output
+  float avgRead;  // average sensor reading
   int rho = 1000; // kg/m3   density of water
-  int samples[30]; // array for averaging sensor reading
+  int maxRange =  103421; // pascals  (max sensor range)
+  int scaledPress = 0;  // pascals
+  int velocity = 0;     // mm/s velocity
+  int num = 30; // number of samples to average over
+  int samples[num]; // array for averaging sensor reading
   pressValue = 0; // start from zero
   
-  for(int i = 0; i<30; i++) //gather 30 samples and sum them up
+  for(int i = 0; i<num; i++) //gather 30 samples and sum them up
   {
     samples[i] = analogRead(pitotSnsrPin);
     pressValue += samples[i];
   }
   
-  result = pressValue/30; // take average
-  pressValue = analogRead(pitotSnsrPin);  // for debugging
-  result = sqrt(2*pressValue/rho);   // apply velocity equation
+  avgRead = pressValue/num; // take average
+  scaledPress = map(avgRead, 0, 1032, 0, maxRange);   // scale average analog value to pascals
   
-  return result;  // should return the velocity of the water based on the equation v=sqrt(2*dp/rho)
+  velocity = 1000 * sqrt(2*scaledPress/rho);   // apply velocity equation (outputs mm/s)
+  pressValue = analogRead(pitotSnsrPin);  // for debugging
+  
+  return velocity;  // should return the velocity of the water based on the equation v=sqrt(2*dp/rho)
 }

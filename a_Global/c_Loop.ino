@@ -35,7 +35,7 @@ void loop()
               logIt = 0;
              break;
            case 2:     // object in counter from upstream   (stop velocity monitoring)
-             entrVel = deltaX / (enterTime - now.unixtime());
+             entrVel = deltaX / (enterTime - now.unixtime()); // calculated velocity based on geometry
              logIt = 0;
              break;
            case 3:      // object exiting counter from upstream (start velocity monitoring)
@@ -43,7 +43,7 @@ void loop()
              logIt = 0;
              break;
            case 4:      // object has passed through counter (stop velocity monitoring and figure out if it was a fish)
-             extVel = deltaX / (exitTime - now.unixtime());
+             extVel = deltaX / (exitTime - now.unixtime()); // calculated velocity based on geometry
              objVel = (entrVel + extVel)/2;  // average velocities
              logIt = verify(objVel); // checks object velocity against water velocity and returns a 1 or 0
              if(logIt ==1)
