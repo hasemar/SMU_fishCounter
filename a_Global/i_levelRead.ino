@@ -3,9 +3,9 @@
  */
 int levelRead() // reads the capacitance level sensor and returns number of lasers to use
 {
-  int result;  // intermediate variable
-  int maxLevel = 1010; // maximum sensor value (fully flooded)
-  int res = maxLevel/maxLasers; // value per laser
+  int avgRead;  // intermediate variable
+  int maxLevel = 1023; // maximum sensor value (fully flooded) might change in the field to tune sensor
+  int scaledCap = 0; // mapped reading for # of lasers
   int samples[30]; // array for averaging sensor reading
   capValue = 0; // start from zero
   
@@ -15,9 +15,9 @@ int levelRead() // reads the capacitance level sensor and returns number of lase
     capValue += samples[i];
   }
   
-  result = capValue/30; // take average
+  avgRead = capValue/30; // take average
+  scaledCap = map(avgRead, 0, maxLevel, 0, maxLasers); // should return # of lasers to use durring sweep
   capValue = analogRead(levSnsrPin);  // for debugging
-  result = result/res;  // devide by resolution (bits/laser) 
   
-  return result;  // should output # of lasers to use
+  return scaledCap;  // should output # of lasers to use
 }
