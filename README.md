@@ -1,5 +1,7 @@
 # SMU_fishCounter
 laser curtain fish counter developed by SMU senior design group
+Code has been written for Arduino Mega 2560
+This was all written by me (hasemar) who is at best a novice!! I started this project needing to refer to the Arduino reference guide for almost every line. If you want to make changes thats cool. Be kind.
 
 This Arduino program controls 2 columns of 24 5mw laser diodes that sequentially fire onto 24 individual LD-photoresistors.
 If a blockage is detected then it is analysed and logged onto an SD-card.  There is a level sensor and velocimeter integrated into
