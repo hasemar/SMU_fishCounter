@@ -29,13 +29,14 @@ float getStrmVel()
   int maxRange =  103421; // pascals  (max sensor range)
   int scaledPress = 0;  // pascals
   int velocity = 0;     // mm/s velocity
-  int num = 30; // number of samples to average over
+  const int num = 30; // number of samples to average over
   int samples[num]; // array for averaging sensor reading
   pressValue = 0; // start from zero
   
   for(int i = 0; i<num; i++) //gather 30 samples and sum them up
   {
     samples[i] = analogRead(pitotSnsrPin);
+    delay(5);
     pressValue += samples[i];
   }
   
