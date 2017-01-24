@@ -38,7 +38,6 @@ int capValue = 0;    // capacitance bit value 0 to 1023
 const int photoResPin1 = A1;   // photoresistors analog input  for column 1
 const int photoResPin2 = A0; // photoresistors analog input for column 2
 int photoresValue = 0;          // photoresistor variable
-int feedback = 0;             // turns scaled value into 1 or 0
 
 // velocity
 unsigned long enterTime = 0;  // time downstream column was broken
