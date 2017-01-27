@@ -4,7 +4,7 @@
 int levelRead() // reads the capacitance level sensor and returns number of lasers to use
 {
   int avgRead;  // intermediate variable
-  int maxLevel = 1023; // maximum sensor value (fully flooded) might change in the field to tune sensor
+  int maxLevel = analogRead(levelSpan); // tune max capacity so all lasers function when fully submerged
   int scaledCap = 0; // mapped reading for # of lasers
   const int num = 30;   // number of samples
   int samples[num]; // array for averaging sensor reading

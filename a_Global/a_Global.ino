@@ -32,6 +32,7 @@ int laser[maxLasers];
 
 // level sensor
 const int levSnsrPin = A2; // capacitance level sensor analog input
+const int levelSpan = A4;  // span trim pot for level sensor to set maxLevel in levelRead
 int capValue = 0;    // capacitance bit value 0 to 1023
 
 // photoresistors
